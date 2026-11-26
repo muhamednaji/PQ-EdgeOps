@@ -1,0 +1,15 @@
+# Dev stack: MLflow tracking server + model registry.
+# Artifacts (model files) are stored on a Docker volume and served by MLflow itself.
+# (MinIO's free Docker images were discontinued in Oct 2025, so we start without it.)
+services:
+  mlflow:
+    build:
+      context: .
+      dockerfile: Dockerfile.mlflow
+    ports:
+      - "5000:5000"
+    volumes:
+      - mlflow_data:/mlflow
+
+volumes:
+  mlflow_data:
